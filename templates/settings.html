@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - C2 Server</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Settings</h2>
+        <form method="POST" action="/settings">
+            <!-- Theme Settings -->
+            <div class="form-group">
+                <label for="theme">Theme</label>
+                <select class="form-control" id="theme" name="theme">
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                </select>
+            </div>
+
+            <!-- Add User -->
+            <h3>Add User</h3>
+            <div class="form-group">
+                <label for="new_username">New Username</label>
+                <input type="text" class="form-control" id="new_username" name="new_username">
+            </div>
+            <div class="form-group">
+                <label for="new_password">New Password</label>
+                <input type="password" class="form-control" id="new_password" name="new_password">
+            </div>
+            <button type="submit" class="btn btn-success">Add User</button>
+        </form>
+
+        <hr>
+
+        <!-- Manage Users -->
+        <h3>Manage Users</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user[1] }}</td>
+                    <td>
+                        <form method="POST" action="/delete_user" style="display:inline;">
+                            <input type="hidden" name="user_id" value="{{ user[0] }}">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#theme').on('change', function() {
+                let theme = $(this).val();
+                $('body').toggleClass('dark-theme', theme === 'dark');
+            });
+        });
+    </script>
+</body>
+</html>

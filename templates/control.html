@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Client</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Control Client: {{ client_info.id }}</h1>
+        <p><strong>IP Address:</strong> {{ tip }}</p>
+        <p><strong>Operating System:</strong> {{ os }}</p>
+        <p><strong>Location:</strong> {{ client_info.location }}</p>
+        <p><strong>Network Status:</strong> {{ client_info.network_status }}</p>
+
+        <form method="POST" >
+            
+            <input type="text" name="command" placeholder="Enter command" required>
+            <button type="submit">Send Command</button>
+        </form>
+
+        {% if response %}
+        <div class="response">
+            <h3>Command Output:</h3>
+            <pre>{{ response }}</pre>
+            <pre>{{ result }}</pre>
+        </div>
+        {% endif %}
+    </div>
+   
+</body>
+</html>
